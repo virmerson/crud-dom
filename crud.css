@@ -1,0 +1,29 @@
+
+
+#page{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.title{
+    text-align: center;
+    background-color: gray;
+}
+
+#form{
+   
+}
+
+#output{
+   
+    display:grid ;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    grid-gap: 2em;
+}
+
+#item{
+    padding: 2em;
+}
