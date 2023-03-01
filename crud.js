@@ -1,4 +1,3 @@
-
 //Business Logic
 class Service {
 
@@ -6,20 +5,13 @@ class Service {
         this.page=3
         this.start=0;
         this.id=0
-
         this.users=[]
-      
     }
 
     add (user){
         user.id= ++this.id
-         this.users.push(user)
-         return user
-    }
-
-    getFirstPage(){
-        this.reset()
-        return this.getUsersPage()
+        this.users.push(user)
+        return user
     }
 
     getUsersPage(){
@@ -36,6 +28,7 @@ class Service {
     }
 
     goForward(){
+       
         if (this.start< this.users.length-1)
             this.start= this.start + this.page
         return this.getUsersPage()
@@ -45,6 +38,17 @@ class Service {
         if( this.start>=this.page)
             this.start = this.start - this.page
             return this.getUsersPage() 
+    }
+
+    goToTheFirstPage(){
+        this.reset()
+        return this.getUsersPage()
+    }
+
+    goToTheLastPage(){
+        let numberOfPages = this.users.length / this.page
+        this.start = parseInt(numberOfPages) * this.page
+        return this.getUsersPage()
     }
 
     reset(){
@@ -57,7 +61,6 @@ class Service {
     }
 
 }
-
 
 //Dependency
 const userService =  new Service()
@@ -98,7 +101,6 @@ class UserDOM{
         divOutput.innerHTML =""
         
         userList.forEach(user => {
-          
             UserDOM.addUserHTML (  UserDOM.getUserHTML( user) ) 
         });
         
@@ -106,32 +108,25 @@ class UserDOM{
     
 }
 
-
-
 class UserController {
 
     static add (e){
          
-             //Reading data from DOM
-             let user =UserDOM.getFormData ()
+        //Reading data from DOM
+        let user =UserDOM.getFormData ()
      
-             //Adding item in array
-             userService.add(user)
+        //Adding item in array
+        userService.add(user)
      
-             // //preparing output printing on DOM
-             // let userHTML =  UserDOM.getUserHTML( newUser )
-             // UserDOM.addUserHTML(userHTML)
-            let list =  userService.getUsersPage()
-            UserDOM.refresh(list)
+        //rendering on DOM
+        let list =  userService.getUsersPage()
+        UserDOM.refresh(list)
             
      }
  
      static delete (id){
-             
-              let usersList =  userService.remove(id)
-             
-             UserDOM.refresh(usersList)
- 
+        let usersList =  userService.remove(id)
+        UserDOM.refresh(usersList)
      }
  
      static goForward(){
@@ -143,11 +138,18 @@ class UserController {
          let list =  userService.goBackward()
          UserDOM.refresh(list)
      }
+
+     static goToTheFirstPage(){
+        let list =  userService.goToTheFirstPage()
+        UserDOM.refresh(list)
+    }
+
+    static goToTheLastPage(){
+        let list =  userService.goToTheLastPage()
+        UserDOM.refresh(list)
+    }
  
  }
-
- 
-
 
 //Events
 document.addEventListener("DOMContentLoaded", (e)=>{
@@ -161,7 +163,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     document.getElementById('btn-save').addEventListener('click',  UserController.add)
     document.getElementById('btn-forward').addEventListener('click',  UserController.goForward)
     document.getElementById('btn-backward').addEventListener('click',  UserController.goBackward)
+    document.getElementById('btn-first').addEventListener('click',  UserController.goToTheFirstPage)
+    document.getElementById('btn-last').addEventListener('click',  UserController.goToTheLastPage)
 
 })
-
-
