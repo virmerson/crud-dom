@@ -77,6 +77,13 @@ class UserDOM{
         return user
     }
 
+
+    static resetForm(){
+        document.getElementById("avatarUrl").value =""
+        document.getElementById("name").value =""
+        document.getElementById("email").value =""
+    }
+
    static getUserHTML (user  ){
         let userHTML = 
         `<div class="item"><img src="${user.avatarUrl}" width="100"></div>
@@ -121,6 +128,7 @@ class UserController {
         //rendering on DOM
         let list =  userService.getUsersPage()
         UserDOM.refresh(list)
+        UserDOM.resetForm()
             
      }
  
