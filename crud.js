@@ -93,7 +93,7 @@ class UserDOM{
     }
 
     static refresh(userList){
-    
+        if (userList.length==0) return 
         let divOutput =   document.getElementById("output")
         divOutput.innerHTML =""
         
@@ -107,7 +107,49 @@ class UserDOM{
 }
 
 
-//Controller
+
+class UserController {
+
+    static add (e){
+         
+             //Reading data from DOM
+             let user =UserDOM.getFormData ()
+     
+             //Adding item in array
+             userService.add(user)
+     
+             // //preparing output printing on DOM
+             // let userHTML =  UserDOM.getUserHTML( newUser )
+             // UserDOM.addUserHTML(userHTML)
+            let list =  userService.getUsersPage()
+            UserDOM.refresh(list)
+            
+     }
+ 
+     static delete (id){
+             
+              let usersList =  userService.remove(id)
+             
+             UserDOM.refresh(usersList)
+ 
+     }
+ 
+     static goForward(){
+         let list =  userService.goForward()
+         UserDOM.refresh(list)
+     }
+ 
+     static goBackward(){
+         let list =  userService.goBackward()
+         UserDOM.refresh(list)
+     }
+ 
+ }
+
+ 
+
+
+//Events
 document.addEventListener("DOMContentLoaded", (e)=>{
 
     //button event
@@ -122,42 +164,4 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 })
 
-
-class UserController {
-
-   static add (e){
-        
-            //Reading data from DOM
-            let user =UserDOM.getFormData ()
-    
-            //Adding item in array
-            let newUser =  userService.add(user)
-    
-            // //preparing output printing on DOM
-            // let userHTML =  UserDOM.getUserHTML( newUser )
-            // UserDOM.addUserHTML(userHTML)
-           let list =  userService.getFirstPage()
-           UserDOM.refresh(list)
-           
-    }
-
-    static delete (id){
-            
-             let usersList =  userService.remove(id)
-            
-            UserDOM.refresh(usersList)
-
-    }
-
-    static goForward(){
-        let list =  userService.goForward()
-        UserDOM.refresh(list)
-    }
-
-    static goBackward(){
-        let list =  userService.goBackward()
-        UserDOM.refresh(list)
-    }
-
-}
 
