@@ -8,10 +8,39 @@ class Service {
         this.users=[]
     }
 
+    save(user){
+        if (!user.id){
+            this.add(user)
+        }else {
+            const found= this.find(user.id)
+            
+            let editUser = { 
+                id: user.id,
+                avatarUrl:  user.avatarUrl!=found.avatarUrl ? user.avatarUrl :  found.avatarUrl,
+                name:       user.name!=found.name ? user.name : found.name ,
+                email:      user.email!=found.email ? user.name :  found.email 
+            }
+            
+            this.update(editUser)
+
+        }
+    }
+
+    update(user){
+        const index = this.users.findIndex( (u) => u.id===user.id )     
+        this.users[index]= user
+    }
+
+
     add (user){
         user.id= ++this.id
         this.users.push(user)
         return user
+    }
+
+    find (id){
+       return this.users.find( (u)=> u.id===id)
+
     }
 
     getUsersPage(){
@@ -59,39 +88,47 @@ class Service {
         this.users =  this.users.filter ( (u)=> u.id!==id  )
         return this.users
     }
-
 }
 
 //Dependency
 const userService =  new Service()
 
-//DOM Helper
+//DOM Render Helper
 class UserDOM{
 
-
     static getFormData(){
-        let user={}
+        const user={}
+        const id = document.getElementById("id").innerText;
+        user.id =  id!=""?parseInt(id) :""
         user.avatarUrl =  document.getElementById("avatarUrl").value
         user.name =  document.getElementById("name").value
         user.email =  document.getElementById("email").value
         return user
     }
 
-
     static resetForm(){
+        document.getElementById("id").innerText=""
         document.getElementById("avatarUrl").value =""
         document.getElementById("name").value =""
         document.getElementById("email").value =""
     }
 
-   static getUserHTML (user  ){
+    static formRender(user){
+        document.getElementById("id").innerText=user.id
+        document.getElementById("avatarUrl").value =user.avatarUrl
+        document.getElementById("name").value =user.name
+        document.getElementById("email").value=user.email
+    }
+
+    static getUserHTML (user){
         let userHTML = 
         `<div class="item"><img src="${user.avatarUrl}" width="100"></div>
-        <div class="item">${user.name} (${user.id})</div>
+        <div class="item">${user.id} </div>
+        <div class="item">${user.name} </div>
         <div class="item">${user.email}</div>
         <div class="item">
                 <button onclick="UserController.delete(${user.id})">Delete</button>
-                <button>Edit</button>
+                <button onclick="UserController.edit(${user.id})">Edit</button>
         </div>`
         return userHTML
     }
@@ -103,7 +140,7 @@ class UserDOM{
     }
 
     static refresh(userList){
-        if (userList.length==0) return 
+      
         let divOutput =   document.getElementById("output")
         divOutput.innerHTML =""
         
@@ -117,26 +154,32 @@ class UserDOM{
 
 class UserController {
 
-    static add (e){
+    static save (e){
          
         //Reading data from DOM
         let user =UserDOM.getFormData ()
      
         //Adding item in array
-        userService.add(user)
+        userService.save(user)
      
         //rendering on DOM
         let list =  userService.getUsersPage()
         UserDOM.refresh(list)
-        UserDOM.resetForm()
+       // UserDOM.resetForm()
             
      }
  
      static delete (id){
-        let usersList =  userService.remove(id)
-        UserDOM.refresh(usersList)
+        userService.remove(id)
+        let list = userService.goToTheFirstPage()
+        UserDOM.refresh(list)
      }
- 
+
+     static edit (id){
+        let user = userService.find (id)
+        UserDOM.formRender(user)
+     }
+
      static goForward(){
          let list =  userService.goForward()
          UserDOM.refresh(list)
@@ -156,10 +199,14 @@ class UserController {
         let list =  userService.goToTheLastPage()
         UserDOM.refresh(list)
     }
+
+    static resetForm(){
+        UserDOM.resetForm()
+    }
  
  }
 
-//Events
+//Static events setup
 document.addEventListener("DOMContentLoaded", (e)=>{
 
     //button event
@@ -168,10 +215,11 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     })
 
     //btn save click
-    document.getElementById('btn-save').addEventListener('click',  UserController.add)
+    document.getElementById('btn-save').addEventListener('click',  UserController.save)
     document.getElementById('btn-forward').addEventListener('click',  UserController.goForward)
     document.getElementById('btn-backward').addEventListener('click',  UserController.goBackward)
     document.getElementById('btn-first').addEventListener('click',  UserController.goToTheFirstPage)
     document.getElementById('btn-last').addEventListener('click',  UserController.goToTheLastPage)
+    document.getElementById('btn-clear').addEventListener('click',  UserController.resetForm)
 
 })
