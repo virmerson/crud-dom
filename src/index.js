@@ -1,5 +1,5 @@
 import UserController from './components/userController'
-
+import "./crud.css"
 
 //Static events setup
 document.addEventListener("DOMContentLoaded", (e)=>{
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     document.getElementById('btn-first').addEventListener('click',  UserController.goToTheFirstPage)
     document.getElementById('btn-last').addEventListener('click',  UserController.goToTheLastPage)
     document.getElementById('btn-clear').addEventListener('click',  UserController.resetForm)
+   //Delete and Edit buttons 
     document.getElementById('output').addEventListener('click', (e)=>{
 
             const component =  e.target.id;
