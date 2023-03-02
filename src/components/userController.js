@@ -15,15 +15,14 @@ export default class UserController {
      
         //rendering on DOM
         const list =  userService.getUsersPage()
-        UserDOM.refresh(list, UserController.delete,UserController.edit )
+        UserDOM.refresh(list)
        // UserDOM.resetForm()
-            
      }
  
      static delete (id){
         userService.remove(id)
         const list = userService.goToTheFirstPage()
-        UserDOM.refresh(list, UserController.delete,UserController.edit  )
+        UserDOM.refresh(list)
     }
 
      static edit (id){
@@ -38,20 +37,18 @@ export default class UserController {
  
      static goBackward(){
         const list =  userService.goBackward()
-        UserDOM.refresh(list, UserController.delete,UserController.edit  )
+        UserDOM.refresh(list)
        
      }
 
      static goToTheFirstPage(){
         const list =  userService.goToTheFirstPage()
-        UserDOM.refresh(list, UserController.delete,UserController.edit )
-       
+        UserDOM.refresh(list)
     }
 
     static goToTheLastPage(){
         const list =  userService.goToTheLastPage()
-        UserDOM.refresh(list, UserController.delete,UserController.edit  )
-       
+        UserDOM.refresh(list)
     }
 
     static resetForm(){

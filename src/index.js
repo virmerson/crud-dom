@@ -1,5 +1,5 @@
 import UserController from './components/userController'
-import "./crud.css"
+import "./style.css"
 
 //Static events setup
 document.addEventListener("DOMContentLoaded", (e)=>{
