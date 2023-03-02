@@ -1,3 +1,4 @@
+import { User } from "realm-web"
 import UserDOM from "./userDOM"
 import userService from "./userService"
 
@@ -14,7 +15,7 @@ export default class UserController {
      
         //rendering on DOM
         const list =  userService.getUsersPage()
-        UserDOM.refresh(list)
+        UserDOM.refresh(list, UserController.delete,UserController.edit )
        // UserDOM.resetForm()
             
      }
@@ -22,8 +23,8 @@ export default class UserController {
      static delete (id){
         userService.remove(id)
         const list = userService.goToTheFirstPage()
-        UserDOM.refresh(list)
-     }
+        UserDOM.refresh(list, UserController.delete,UserController.edit  )
+    }
 
      static edit (id){
         const user = userService.find (id)
@@ -37,17 +38,20 @@ export default class UserController {
  
      static goBackward(){
         const list =  userService.goBackward()
-         UserDOM.refresh(list)
+        UserDOM.refresh(list, UserController.delete,UserController.edit  )
+       
      }
 
      static goToTheFirstPage(){
         const list =  userService.goToTheFirstPage()
-        UserDOM.refresh(list)
+        UserDOM.refresh(list, UserController.delete,UserController.edit )
+       
     }
 
     static goToTheLastPage(){
         const list =  userService.goToTheLastPage()
-        UserDOM.refresh(list)
+        UserDOM.refresh(list, UserController.delete,UserController.edit  )
+       
     }
 
     static resetForm(){

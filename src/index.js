@@ -16,5 +16,22 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     document.getElementById('btn-first').addEventListener('click',  UserController.goToTheFirstPage)
     document.getElementById('btn-last').addEventListener('click',  UserController.goToTheLastPage)
     document.getElementById('btn-clear').addEventListener('click',  UserController.resetForm)
+    document.getElementById('output').addEventListener('click', (e)=>{
 
+            const component =  e.target.id;
+            if(component) 
+            {
+                const c = component.split("-")
+                const action = c[0]
+                const id = parseInt(c[1])
+
+                if (action=="delete"){
+                    UserController.delete(id)
+                }else if (action=="edit"){
+                    UserController.edit(id)
+                }
+                
+            }
+        
+    })  
 })

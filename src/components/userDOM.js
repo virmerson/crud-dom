@@ -19,46 +19,44 @@ export default class UserDOM{
     }
 
     static formRender(user){
-        document.getElementById("id").innerText=user.id
-        document.getElementById("avatarUrl").value =user.avatarUrl
-        document.getElementById("name").value =user.name
-        document.getElementById("email").value=user.email
+        if(user){
+            document.getElementById("id").innerText=user.id?user.id:""
+            document.getElementById("avatarUrl").value =user.avatarUrl
+            document.getElementById("name").value =user.name
+            document.getElementById("email").value=user.email
+        }
     }
 
-    static getUserHTML (user){
+    static getUserHTML (user, deleteFn, editFn){
+  
+        
         const userHTML = 
         `<div class="item"><img src="${user.avatarUrl}" width="100"></div>
         <div class="item">${user.id} </div>
         <div class="item">${user.name} </div>
         <div class="item">${user.email}</div>
         <div class="item">
-                <button>Delete</button>
-                <button>Edit</button>
-        </div>`
-
-
-        // const e = document.createElement('div');
-        // e.innerHTML = userHTML;
-        // e.querySelectorAll('button')[0].addEventListener('click', UserController.delete(user.id));
-
-        // return userHTML
-        
-      
+                <button id="delete-${user.id}">Delete</button>
+                <button id="edit-${user.id}">Edit</button>
+        </div>`   
+         return userHTML
+    
     }
 
     static addUserHTML(userHTML){
           //creating DOM element for the object
           const divOutput =   document.getElementById("output")
+          //divOutput.appendChild(userHTML)
           divOutput.innerHTML +=  userHTML
     }
 
-    static refresh(userList){
+    static refresh(userList, deleteFn, editFn){
       
         const divOutput =   document.getElementById("output")
         divOutput.innerHTML =""
         
         userList.forEach(user => {
-            UserDOM.addUserHTML (  UserDOM.getUserHTML( user) ) 
+            UserDOM.addUserHTML (  UserDOM.getUserHTML( user, deleteFn, editFn) ) 
         });
         
     }
