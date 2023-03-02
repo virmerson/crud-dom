@@ -1,6 +1,11 @@
 //DOM Render Helper
 export default class UserDOM{
 
+    static getSearchData(){
+        const search = document.getElementById("search").value;
+        return search
+    }
+
     static getFormData(){
         const user={}
         const id = document.getElementById("id").innerText;
@@ -27,7 +32,7 @@ export default class UserDOM{
         }
     }
 
-    static getUserHTML (user, deleteFn, editFn){
+    static getUserHTML (user){
   
         
         const userHTML = 
@@ -50,13 +55,13 @@ export default class UserDOM{
           divOutput.innerHTML +=  userHTML
     }
 
-    static refresh(userList, deleteFn, editFn){
+    static refresh(userList){
       
         const divOutput =   document.getElementById("output")
         divOutput.innerHTML =""
         
         userList.forEach(user => {
-            UserDOM.addUserHTML (  UserDOM.getUserHTML( user, deleteFn, editFn) ) 
+            UserDOM.addUserHTML (  UserDOM.getUserHTML( user) ) 
         });
         
     }

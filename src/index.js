@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     document.getElementById('btn-first').addEventListener('click',  UserController.goToTheFirstPage)
     document.getElementById('btn-last').addEventListener('click',  UserController.goToTheLastPage)
     document.getElementById('btn-clear').addEventListener('click',  UserController.resetForm)
+    document.getElementById('btn-search').addEventListener('click',  UserController.search)
    //Delete and Edit buttons 
     document.getElementById('output').addEventListener('click', (e)=>{
 

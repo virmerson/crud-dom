@@ -41,12 +41,15 @@ class Service {
        return this.users.find( (u)=> u.id===id)
     }
 
+    findByFilter (text){
+       return this.users.filter( (u)=> u.email.toLowerCase().search(text.toLowerCase())>=0  || u.name.toLowerCase().search(text.toLowerCase())>=0)  
+    }
+
     getUsersPage(){
         let start = this.start
         let end =  this.start+this.page
       
         //validating end of array
-
         if (end>=  this.users.length)
             end = this.users.length
 

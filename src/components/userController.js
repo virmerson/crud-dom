@@ -1,4 +1,3 @@
-import { User } from "realm-web"
 import UserDOM from "./userDOM"
 import userService from "./userService"
 
@@ -53,6 +52,12 @@ export default class UserController {
 
     static resetForm(){
         UserDOM.resetForm()
+    }
+
+    static search (){
+        const search =UserDOM.getSearchData()
+        const list =  userService.findByFilter(search)
+        UserDOM.refresh(list)
     }
  
 }
