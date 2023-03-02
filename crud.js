@@ -22,7 +22,6 @@ class Service {
             }
             
             this.update(editUser)
-
         }
     }
 
@@ -40,7 +39,6 @@ class Service {
 
     find (id){
        return this.users.find( (u)=> u.id===id)
-
     }
 
     getUsersPage(){
@@ -121,7 +119,7 @@ class UserDOM{
     }
 
     static getUserHTML (user){
-        let userHTML = 
+        const userHTML = 
         `<div class="item"><img src="${user.avatarUrl}" width="100"></div>
         <div class="item">${user.id} </div>
         <div class="item">${user.name} </div>
@@ -135,13 +133,13 @@ class UserDOM{
 
     static addUserHTML(userHTML){
           //creating DOM element for the object
-          let divOutput =   document.getElementById("output")
+          const divOutput =   document.getElementById("output")
           divOutput.innerHTML +=  userHTML
     }
 
     static refresh(userList){
       
-        let divOutput =   document.getElementById("output")
+        const divOutput =   document.getElementById("output")
         divOutput.innerHTML =""
         
         userList.forEach(user => {
@@ -149,21 +147,21 @@ class UserDOM{
         });
         
     }
-    
 }
 
+//Event listeners
 class UserController {
 
     static save (e){
          
         //Reading data from DOM
-        let user =UserDOM.getFormData ()
+        const user =UserDOM.getFormData ()
      
         //Adding item in array
         userService.save(user)
      
         //rendering on DOM
-        let list =  userService.getUsersPage()
+        const list =  userService.getUsersPage()
         UserDOM.refresh(list)
        // UserDOM.resetForm()
             
@@ -171,32 +169,32 @@ class UserController {
  
      static delete (id){
         userService.remove(id)
-        let list = userService.goToTheFirstPage()
+        const list = userService.goToTheFirstPage()
         UserDOM.refresh(list)
      }
 
      static edit (id){
-        let user = userService.find (id)
+        const user = userService.find (id)
         UserDOM.formRender(user)
      }
 
      static goForward(){
-         let list =  userService.goForward()
+        const list =  userService.goForward()
          UserDOM.refresh(list)
      }
  
      static goBackward(){
-         let list =  userService.goBackward()
+        const list =  userService.goBackward()
          UserDOM.refresh(list)
      }
 
      static goToTheFirstPage(){
-        let list =  userService.goToTheFirstPage()
+        const list =  userService.goToTheFirstPage()
         UserDOM.refresh(list)
     }
 
     static goToTheLastPage(){
-        let list =  userService.goToTheLastPage()
+        const list =  userService.goToTheLastPage()
         UserDOM.refresh(list)
     }
 
@@ -204,7 +202,7 @@ class UserController {
         UserDOM.resetForm()
     }
  
- }
+}
 
 //Static events setup
 document.addEventListener("DOMContentLoaded", (e)=>{
