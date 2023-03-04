@@ -1,6 +1,14 @@
 //DOM Render Helper
 export default class UserDOM{
 
+
+
+    static getSortedByData(){
+        const sortedBy = document.getElementById("sortedBy").value;
+        return sortedBy
+    }
+
+
     static getSearchData(){
         const search = document.getElementById("search").value;
         return search

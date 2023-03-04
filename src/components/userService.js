@@ -1,7 +1,8 @@
+import  compareValues  from  './arrayUtil';
 //Business Logic
 class Service {
 
-    constructor(){
+    constructor(){  
         this.page=3
         this.start=0;
         this.id=0
@@ -45,7 +46,12 @@ class Service {
        return this.users.filter( (u)=> u.email.toLowerCase().search(text.toLowerCase())>=0  || u.name.toLowerCase().search(text.toLowerCase())>=0)  
     }
 
-    getUsersPage(){
+    getUsersPage(sortedBy){
+
+       
+        if (sortedBy)
+            this.users.sort(compareValues( sortedBy  ,"asc") )
+
         let start = this.start
         let end =  this.start+this.page
       
@@ -53,6 +59,7 @@ class Service {
         if (end>=  this.users.length)
             end = this.users.length
 
+        
         //getting data
         return this.users.slice(start, end)
     }

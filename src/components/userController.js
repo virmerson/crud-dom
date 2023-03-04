@@ -57,7 +57,13 @@ export default class UserController {
     static search (){
         const search =UserDOM.getSearchData()
         const list =  userService.findByFilter(search)
+
         UserDOM.refresh(list)
     }
  
+    static sort(){
+        const sortedBy =UserDOM.getSortedByData()
+        const list =  userService.getUsersPage(sortedBy)
+        UserDOM.refresh(list)
+    }
 }
