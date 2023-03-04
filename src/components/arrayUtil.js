@@ -1,6 +1,5 @@
-
-
-  export default function compareValues(key, order = 'asc') {
+export default  class ArrayUtil{
+static compareValues(key, order = 'asc') {
     return function innerSort(a, b) {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
         // property doesn't exist on either object
@@ -23,4 +22,4 @@
       );
     };
   }
-
+}

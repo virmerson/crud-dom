@@ -1,4 +1,4 @@
-import  compareValues  from  './arrayUtil';
+import  ArrayUtil  from  './arrayUtil';
 //Business Logic
 class Service {
 
@@ -50,7 +50,7 @@ class Service {
 
        
         if (sortedBy)
-            this.users.sort(compareValues( sortedBy  ,"asc") )
+            this.users.sort(ArrayUtil.compareValues( sortedBy  ,"asc") )
 
         let start = this.start
         let end =  this.start+this.page
