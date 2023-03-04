@@ -1,4 +1,4 @@
-import  ArrayUtil  from  './arrayUtil';
+import  MyUtil  from  './myUtil';
 //Business Logic
 class Service {
 
@@ -10,6 +10,12 @@ class Service {
     }
 
     save(user){
+
+        //calculating age
+
+       
+        user.age = MyUtil.calcAge(user.birthDate)
+
         if (!user.id){
             this.add(user)
         }else {
@@ -19,7 +25,8 @@ class Service {
                 id: user.id,
                 avatarUrl:  user.avatarUrl!=found.avatarUrl ? user.avatarUrl :  found.avatarUrl,
                 name:       user.name!=found.name ? user.name : found.name ,
-                email:      user.email!=found.email ? user.name :  found.email 
+                email:      user.email!=found.email ? user.name :  found.email, 
+                birthDate:  user.birthDate!=found.birthDate ? user.name :  found.birthDate 
             }
             
             this.update(editUser)
@@ -30,7 +37,6 @@ class Service {
         const index = this.users.findIndex( (u) => u.id===user.id )     
         this.users[index]= user
     }
-
 
     add (user){
         user.id= ++this.id
@@ -50,7 +56,7 @@ class Service {
 
        
         if (sortedBy)
-            this.users.sort(ArrayUtil.compareValues( sortedBy  ,"asc") )
+            this.users.sort(MyUtil.compareValues( sortedBy  ,"asc") )
 
         let start = this.start
         let end =  this.start+this.page
@@ -95,6 +101,11 @@ class Service {
     remove(id){
         this.users =  this.users.filter ( (u)=> u.id!==id  )
         return this.users
+    }
+
+    calcAgeAverage(){
+        const sum =  this.users.reduce (  (sum, u)=> sum + u.age  , 0)
+        return sum / this.users.length
     }
 }
 

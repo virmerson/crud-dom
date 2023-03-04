@@ -66,4 +66,9 @@ export default class UserController {
         const list =  userService.getUsersPage(sortedBy)
         UserDOM.refresh(list)
     }
+
+    static calcAgeAverage(){    
+        const ageAverage = userService.calcAgeAverage()
+        UserDOM.refreshAgeAverage(ageAverage)
+    }
 }

@@ -15,8 +15,9 @@
             <form name="users">
                 <span id="id"></span>
                 <input id="avatarUrl" placeholder="Avatar url">
-                <input id="name" placeholder="name">
-                <input id="email" placeholder="email">
+                <input id="name" placeholder="Name">
+                <input id="email" placeholder="E-mail">
+                <input id="birthDate" placeholder="Birth Date" type="date">
                 <button id="btn-save" type="submit"> Save</button>
                 <button id="btn-clear" type="submit"> Clear</button>
 
@@ -35,6 +36,7 @@
                 <option value="id">id</option>
                 <option value="name">name</option>
                 <option value="email">E-mail</option>
+                <option value="age">Age</option>
             </select>
          
             <button id="btn-sort"> sort </button>
@@ -44,14 +46,18 @@
         
         </div>
 
-        <div id="pagination">
-                <div> 
-                    <button id="btn-first"> << </button> 
-                    <button id="btn-backward"> < </button>  
-                    <button id="btn-forward"> > </button>
-                    <button id="btn-last"> >> </button> 
-                </div>
+        <div id="ageAverage">
+
         </div>
+
+        <div id="pagination">
+            <div> 
+                <button id="btn-first"> << </button> 
+                <button id="btn-backward"> < </button>  
+                <button id="btn-forward"> > </button>
+                <button id="btn-last"> >> </button> 
+            </div>
+    </div>
 
     </div>
 

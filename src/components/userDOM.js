@@ -2,7 +2,6 @@
 export default class UserDOM{
 
 
-
     static getSortedByData(){
         const sortedBy = document.getElementById("sortedBy").value;
         return sortedBy
@@ -21,6 +20,7 @@ export default class UserDOM{
         user.avatarUrl =  document.getElementById("avatarUrl").value
         user.name =  document.getElementById("name").value
         user.email =  document.getElementById("email").value
+        user.birthDate =  document.getElementById("birthDate").value
         return user
     }
 
@@ -29,6 +29,7 @@ export default class UserDOM{
         document.getElementById("avatarUrl").value =""
         document.getElementById("name").value =""
         document.getElementById("email").value =""
+        document.getElementById("birthDate").value =""
     }
 
     static formRender(user){
@@ -37,6 +38,7 @@ export default class UserDOM{
             document.getElementById("avatarUrl").value =user.avatarUrl
             document.getElementById("name").value =user.name
             document.getElementById("email").value=user.email
+            document.getElementById("birthDate").value=user.birthDate
         }
     }
 
@@ -48,6 +50,8 @@ export default class UserDOM{
         <div class="item">${user.id} </div>
         <div class="item">${user.name} </div>
         <div class="item">${user.email}</div>
+        <div class="item">${user.birthDate}</div>
+        <div class="item">${user.age}</div>
         <div class="item">
                 <button id="delete-${user.id}">Delete</button>
                 <button id="edit-${user.id}">Edit</button>
@@ -71,6 +75,15 @@ export default class UserDOM{
         userList.forEach(user => {
             UserDOM.addUserHTML (  UserDOM.getUserHTML( user) ) 
         });
-        
+
+        //throwing an output event 
+        let event = new Event("updated", {bubbles: true});
+        divOutput.dispatchEvent(event);
+ 
+    }
+
+    static refreshAgeAverage(ageAverage){
+        const divAverage =   document.getElementById("ageAverage")
+        divAverage.innerHTML = `Age Average ${ageAverage.toPrecision(4)};`
     }
 }

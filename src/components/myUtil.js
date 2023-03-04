@@ -1,4 +1,4 @@
-export default  class ArrayUtil{
+export default  class MyUtil{
 static compareValues(key, order = 'asc') {
     return function innerSort(a, b) {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -21,5 +21,10 @@ static compareValues(key, order = 'asc') {
         (order === 'desc') ? (comparison * -1) : comparison
       );
     };
+  }
+
+  static calcAge(birthDate){
+      var years = new Date(new Date() - new Date(birthDate)).getFullYear() - 1970; 
+      return years
   }
 }
