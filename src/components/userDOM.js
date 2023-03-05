@@ -91,4 +91,10 @@ export default class UserDOM{
         const divError =   document.getElementById("error")
         divError.innerHTML=  error.message
     }
+
+    static clearError(){
+        const divError =   document.getElementById("error")
+        divError.innerHTML=  ""
+    }
 }
+

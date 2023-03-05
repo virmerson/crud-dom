@@ -18,32 +18,39 @@ class Service {
 
 
         //validation 
-       const emailFound =  this.findByFilter (user.email)
-       if(emailFound.length>0){
+       const userFound =  this.findByFilter (user.email)
+       if(userFound.length>0 && user.id !==userFound[0].id){
             throw Error(`E-mail ${user.email} already exists`)
-       }
+       }    
 
         if (!user.id){
             this.add(user)
         }else {
-            const found= this.find(user.id)
-            
-            let editUser = { 
-                id: user.id,
-                avatarUrl:  user.avatarUrl!=found.avatarUrl ? user.avatarUrl :  found.avatarUrl,
-                name:       user.name!=found.name ? user.name : found.name ,
-                email:      user.email!=found.email ? user.name :  found.email, 
-                birthDate:  user.birthDate!=found.birthDate ? user.name :  found.birthDate 
-            }
-            
-            this.update(editUser)
+         this.users= this.users.map( (found) => {
+                    if (user.id===found.id){
+                        return { 
+                            id: user.id,
+                            avatarUrl:  user.avatarUrl!=found.avatarUrl ? user.avatarUrl :  found.avatarUrl,
+                            name:       user.name!=found.name ? user.name : found.name ,
+                            email:      user.email!=found.email ? user.email :  found.email, 
+                            birthDate:  user.birthDate!=found.birthDate ? user.birthDate :  found.birthDate, 
+                            age: user.age!=found.age ? user.age :  found.age    
+                        }
+                    }
+                    return found
+                }
+
+            )
+
         }
     }
 
-    update(user){
-        const index = this.users.findIndex( (u) => u.id===user.id )     
-        this.users[index]= user
-    }
+    // update(user){
+    //     const index = this.users.findIndex( (u) => u.id===user.id )     
+    //     this.users[index]= user
+
+       
+    // }
 
     add (user){
         user.id= ++this.id

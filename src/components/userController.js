@@ -15,7 +15,7 @@ export default class UserController {
             //rendering on DOM
             const list =  userService.getUsersPage()
             UserDOM.refresh(list)
-            // UserDOM.resetForm()
+            UserDOM.clearError()
 
         } catch (error) {
             UserDOM.renderError(error)
