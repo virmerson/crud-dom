@@ -86,4 +86,9 @@ export default class UserDOM{
         const divAverage =   document.getElementById("ageAverage")
         divAverage.innerHTML = `Age Average ${ageAverage.toPrecision(4)};`
     }
+
+    static renderError(error){
+        const divError =   document.getElementById("error")
+        divError.innerHTML=  error.message
+    }
 }

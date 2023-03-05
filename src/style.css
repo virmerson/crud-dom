@@ -11,9 +11,9 @@
     text-align: center;
     background-color: gray;
 }
-
-#form{
-   
+#error{
+    background-color: red;
+    color: white;
 }
 
 #output{

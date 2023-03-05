@@ -16,6 +16,13 @@ class Service {
        
         user.age = MyUtil.calcAge(user.birthDate)
 
+
+        //validation 
+       const emailFound =  this.findByFilter (user.email)
+       if(emailFound.length>0){
+            throw Error(`E-mail ${user.email} already exists`)
+       }
+
         if (!user.id){
             this.add(user)
         }else {

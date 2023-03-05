@@ -8,14 +8,20 @@ export default class UserController {
          
         //Reading data from DOM
         const user =UserDOM.getFormData ()
+        try {
+            
+            //Adding item in array
+            userService.save(user)
+            //rendering on DOM
+            const list =  userService.getUsersPage()
+            UserDOM.refresh(list)
+            // UserDOM.resetForm()
+
+        } catch (error) {
+            UserDOM.renderError(error)
+        }
      
-        //Adding item in array
-        userService.save(user)
-     
-        //rendering on DOM
-        const list =  userService.getUsersPage()
-        UserDOM.refresh(list)
-       // UserDOM.resetForm()
+       
      }
  
      static delete (id){
