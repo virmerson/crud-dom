@@ -4,16 +4,16 @@ import userService from "./userService"
 //Event listeners
 export default class UserController {
 
-    static save (e){
+    static async save (e){
          
         //Reading data from DOM
         const user =UserDOM.getFormData ()
         try {
             
             //Adding item in array
-            userService.save(user)
+            await userService.save(user)
             //rendering on DOM
-            const list =  userService.getUsersPage()
+            const list =   userService.getUsersPage()
             UserDOM.refresh(list)
             UserDOM.clearError()
 

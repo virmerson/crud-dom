@@ -9,19 +9,31 @@ class Service {
         this.users=[]
     }
 
-    save(user){
+
+    async getAvatar(user){
+        
+        let avatarId = user.name
+        const response =  await fetch(`https://api.multiavatar.com/${JSON.stringify(avatarId)}`)
+        const svg = await response.text()
+        return svg
+
+    }
+
+    async save(user){
 
         //calculating age
 
-       
         user.age = MyUtil.calcAge(user.birthDate)
 
-
-        //validation 
+        //validation existing e-maill
        const userFound =  this.findByFilter (user.email)
        if(userFound.length>0 && user.id !==userFound[0].id){
             throw Error(`E-mail ${user.email} already exists`)
        }    
+       //generating an avatar 
+        if ( user.avatarUrl=="")
+             user.avatarUrl = await this.getAvatar(user)
+
 
         if (!user.id){
             this.add(user)

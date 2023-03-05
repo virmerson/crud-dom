@@ -43,10 +43,11 @@ export default class UserDOM{
     }
 
     static getUserHTML (user){
-  
+      //  `<div class="item"><img src="${user.avatarUrl}" width="100"></div>
         
         const userHTML = 
-        `<div class="item"><img src="${user.avatarUrl}" width="100"></div>
+       
+        `<div class="item">${user.avatarUrl}</div>
         <div class="item">${user.id} </div>
         <div class="item">${user.name} </div>
         <div class="item">${user.email}</div>
